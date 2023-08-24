@@ -1,0 +1,36 @@
+{
+  "name": "block-puzzle",
+  "description": "Block Puzzle Game",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "serve": "serve ./dist",
+    "lint:eslint": "eslint .",
+    "lint:ts": "tsc --noEmit",
+    "lint:svelte": "svelte-check",
+    "lint": "npm run lint:eslint && npm run lint:ts && npm run lint:svelte"
+  },
+  "keywords": [
+    "block-puzzle"
+  ],
+  "author": "abnocto",
+  "license": "ISC",
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^2.4.2",
+    "@tsconfig/svelte": "^5.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.2.1",
+    "@typescript-eslint/parser": "^6.2.1",
+    "eslint": "^8.46.0",
+    "eslint-plugin-svelte": "^2.33.0",
+    "serve": "^14.2.1",
+    "svelte": "^4.0.5",
+    "svelte-check": "^3.4.6",
+    "svelte-toggle": "^4.0.0",
+    "tslib": "^2.6.0",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5"
+  }
+}
