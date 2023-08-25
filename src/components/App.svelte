@@ -5,6 +5,7 @@
 	import ThemeSwitcher from './ThemeSwitcher.svelte';
 	import Board from './Board.svelte';
 	import Figures from './Figures.svelte';
+	import GameOver from './GameOver.svelte';
 
 	const theme = createThemeStore();
 	const game = createGameStore();
@@ -27,6 +28,7 @@
 		figures={$game.figures}
 		on:figure-dragged={(event) => game.setDraggedFigure(event.detail)}
 	/>
+	<GameOver visible={$game.isGameOver} />
 </div>
 
 <style>

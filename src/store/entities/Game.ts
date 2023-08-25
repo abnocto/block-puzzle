@@ -11,6 +11,7 @@ export class Game {
 	private _board: Board;
 	private _figures: Figure[];
 	private _draggedFigure: DraggedFigure | null;
+	private _isGameOver: boolean;
 
 	constructor() {
 		this._highScore = this._loadHighScore();
@@ -18,6 +19,7 @@ export class Game {
 		this._board = new Board();
 		this._figures = this._generateFigures();
 		this._draggedFigure = null;
+		this._isGameOver = false;
 	}
 
 	private _loadHighScore() {
@@ -35,16 +37,18 @@ export class Game {
 	}
 
 	addDraggedFigureToBoard(dropCoords: Coords) {
-		if (!this._draggedFigure) {
-			return;
-		}
-
-		this._board.fillCells(dropCoords, this._draggedFigure);
-		this._score += this._draggedFigure.getScore();
-		this._score += this._board.clearFilledLines();
+		this._board.fillCells(dropCoords, this._draggedFigure!);
+		this._updateScore();
 		this._updateHighScore();
+		this._board.clearFilledLines();
 		this._updateFigures();
 		this._draggedFigure = null;
+		this._checkGameEnd();
+	}
+
+	private _updateScore() {
+		this._score += this._draggedFigure!.getScore();
+		this._score += this._board.getScoreForFilledLines();
 	}
 
 	private _updateHighScore() {
@@ -55,14 +59,23 @@ export class Game {
 	}
 
 	private _updateFigures() {
-		if (!this._draggedFigure) {
-			return;
-		}
-
 		this._figures = this._figures.filter((figure) => !this._draggedFigure!.compareFigure(figure));
 
 		if (!this._figures.length) {
 			this._figures = this._generateFigures();
+		}
+	}
+
+	private _checkGameEnd() {
+		const isGameEnd = this._figures.every((figure) =>
+			figure.getDraggedFigures()
+				.every((draggedFigure) => !this._board.areDroppableCells(draggedFigure))
+		);
+
+		if (isGameEnd) {
+			this._board.clearAllCells();
+			this._figures.forEach((figure) => figure.clearAllCells());
+			this._isGameOver = true;
 		}
 	}
 
@@ -71,7 +84,8 @@ export class Game {
 			highScore: this._highScore,
 			score: this._score,
 			board: this._board.toDto(),
-			figures: this._figures.map((figure) => figure.toDto())
+			figures: this._figures.map((figure) => figure.toDto()),
+			isGameOver: this._isGameOver
 		};
 	}
 }

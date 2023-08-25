@@ -31,4 +31,5 @@ export type State = {
 	score: number;
 	board: BoardDto;
 	figures: FigureDto[];
+	isGameOver: boolean;
 };
