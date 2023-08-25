@@ -1,6 +1,7 @@
 import {FIGURE_PATTERNS} from '../../constants';
 import {Cell} from './Cell';
 import {Coords} from './Coords';
+import {DraggedFigure} from './DraggedFigure';
 import type {FigureDto} from '../../types';
 
 export class Figure {
@@ -44,6 +45,29 @@ export class Figure {
 					coords.getY() + filledCell.getY()
 				)
 			);
+	}
+
+	getDraggedFigures() {
+		return this._cells
+			.reduce((allCells, line) => [...allCells, ...line], [])
+			.filter((cell) => cell.isFilled())
+			.map((filledCell) =>
+				new DraggedFigure(
+					this,
+					new Coords(
+						filledCell.getX(),
+						filledCell.getY()
+					)
+				)
+			);
+	}
+
+	clearAllCells() {
+		this._cells.forEach((line) =>
+			line.forEach((cell) =>
+				cell.clear()
+			)
+		);
 	}
 
 	getId() {

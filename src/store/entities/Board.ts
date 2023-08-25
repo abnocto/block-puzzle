@@ -19,15 +19,23 @@ export class Board {
 		);
 	}
 
+	areDroppableCells(draggedFigure: DraggedFigure) {
+		return this._cells.some((line) =>
+			line.some((cell) =>
+				this._canCellBeDroppable(cell, draggedFigure)
+			)
+		);
+	}
+
 	setDroppableCells(draggedFigure: DraggedFigure) {
 		this._cells.forEach((line) => {
 			line.forEach((cell) => {
-				cell.setDroppable(this._shouldCellBeDroppable(cell, draggedFigure));
+				cell.setDroppable(this._canCellBeDroppable(cell, draggedFigure));
 			});
 		});
 	}
 
-	private _shouldCellBeDroppable(cell: Cell, draggedFigure: DraggedFigure) {
+	private _canCellBeDroppable(cell: Cell, draggedFigure: DraggedFigure) {
 		const shiftedCoords = draggedFigure.getShiftedCoords(cell.getCoords());
 
 		return shiftedCoords.every((coords) =>
@@ -52,25 +60,31 @@ export class Board {
 		);
 	}
 
+	getScoreForFilledLines() {
+		return BOARD_SIZE * this._getFilledLines().length;
+	}
+
 	clearFilledLines() {
-		let clearedCellsCounter = 0;
+		this._getFilledLines()
+			.forEach((line) =>
+				line.forEach((cell) => cell.clear())
+			);
+	}
 
-		const clearLine = (line: Cell[]) => {
-			if (line.every((cell) => cell.isFilled())) {
-				line.forEach((cell) => cell.clear());
-				clearedCellsCounter += BOARD_SIZE;
-			}
-		};
+	private _getFilledLines() {
+		return [
+			...this._cells,
+			...Array(BOARD_SIZE).fill([]).map((_, y) => this._cells.map((line) => line[y]))
+		]
+			.filter((line) => line.every((cell) => cell.isFilled()));
+	}
 
-		this._cells.forEach((line) => {
-			clearLine(line);
-		});
-
-		Array(BOARD_SIZE).fill([]).forEach((_, y) => {
-			clearLine(this._cells.map((line) => line[y]));
-		});
-
-		return clearedCellsCounter;
+	clearAllCells() {
+		this._cells.forEach((line) =>
+			line.forEach((cell) =>
+				cell.clear()
+			)
+		);
 	}
 
 	toDto(): BoardDto {
