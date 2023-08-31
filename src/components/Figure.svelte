@@ -17,12 +17,12 @@
 	role='figure'
 	draggable='true'
 	on:dragstart={() => {
-        dragged = true;
-    }}
+		dragged = true;
+	}}
 	on:drag={() => {
-        timeoutId && clearTimeout(timeoutId);
-        timeoutId = setTimeout(() => dragged = false, 250);
-    }}
+		timeoutId && clearTimeout(timeoutId);
+		timeoutId = setTimeout(() => dragged = false, 250);
+	}}
 >
 	{#each figure.cells as line}
 		<div class='figure-line'>
@@ -31,11 +31,11 @@
 					filled={cell.filled}
 					bordered={cell.filled}
 					on:pointerdown={() => {
-                        dispatch('figure-dragged', {
-                            figure,
-                            coords: cell.coords
-                        });
-                    }}
+						dispatch('figure-dragged', {
+							figure,
+							coords: cell.coords
+						});
+					}}
 				/>
 			{/each}
 		</div>

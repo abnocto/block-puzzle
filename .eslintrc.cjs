@@ -22,6 +22,7 @@ module.exports = {
 		'object-curly-spacing': ['error', 'never'],
 		'quotes': ['error', 'single'],
 		'semi': ['error', 'always'],
-		'svelte/html-quotes': ['error', {'prefer': 'single'}]
+		'svelte/html-quotes': ['error', {'prefer': 'single'}],
+		'svelte/indent': ['error', {'indent': 'tab'}]
 	}
 };

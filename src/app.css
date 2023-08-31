@@ -1,27 +1,27 @@
 :root {
-    --bg: #fff3da;
+	--bg: #fff3da;
 
-    --cell-bg: #d0bfff;
-    --cell-border: #beadfa;
+	--cell-bg: #d0bfff;
+	--cell-border: #beadfa;
 
-    --color-invert: 0;
+	--color-invert: 0;
 
-    --gap-l: 80px;
-    --gap-m: 20px;
-    --gap-s: 10px;
+	--gap-l: 80px;
+	--gap-m: 20px;
+	--gap-s: 10px;
 }
 
 body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--cell-bg);
+	margin: 0;
+	background: var(--bg);
+	color: var(--cell-bg);
 }
 
 body[theme=dark] {
-    --bg: #3f1d38;
+	--bg: #3f1d38;
 
-    --cell-bg: #a2678a;
-    --cell-border: #4d3c77;
+	--cell-bg: #a2678a;
+	--cell-border: #4d3c77;
 
-    --color-invert: 1;
+	--color-invert: 1;
 }
