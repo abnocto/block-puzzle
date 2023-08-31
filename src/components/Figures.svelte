@@ -5,10 +5,7 @@
 	export let figures: FigureDto[];
 </script>
 
-<div
-	class='figures'
-	style:--figure-amount={figures.length}
->
+<div class='figures'>
 	{#each figures as figure (figure.id)}
 		<Figure
 			{figure}
@@ -19,7 +16,9 @@
 
 <style>
 	.figures {
-		display: grid;
-		grid-template-columns: repeat(var(--figure-amount), 1fr);
+		display: flex;
+		align-items: flex-start;
+		gap: var(--gap-l);
+		margin-top: var(--gap-l);
 	}
 </style>

@@ -1,16 +1,16 @@
 <script lang='ts'>
 	export let filled: boolean;
-	export let bordered: boolean;
+	export let bordered: boolean = true;
+	export let droppable: boolean = false;
 </script>
 
 <div
 	class='cell'
 	class:filled
 	class:bordered
-	role='figure'
-	on:drop
-	on:dragover
+	class:droppable
 	on:pointerdown
+	on:pointerup
 />
 
 <style>
@@ -28,5 +28,9 @@
 
 	.cell.bordered {
 		border: 1px solid var(--cell-border);
+	}
+
+	.cell.droppable {
+		z-index: 1;
 	}
 </style>

@@ -26,9 +26,8 @@
 				{#each line as cell}
 					<Cell
 						filled={cell.filled}
-						bordered
-						on:dragover={(event) => cell.droppable && event.preventDefault()}
-						on:drop={() => dispatch('figure-drop', cell.coords)}
+						droppable={cell.droppable}
+						on:pointerup={() => cell.droppable && dispatch('figure-drop', cell.coords)}
 					/>
 				{/each}
 			</div>
