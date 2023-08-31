@@ -1,28 +1,17 @@
 <script lang='ts'>
 	import {createEventDispatcher} from 'svelte';
+	import {dragAndDrop} from '../actions/drag-and-drop';
 	import Cell from './Cell.svelte';
 	import type {FigureDto, DraggedFigureDto} from '../types';
 
 	export let figure: FigureDto;
-
-	let dragged: boolean = false;
-	let timeoutId: number | null = null;
 
 	const dispatch = createEventDispatcher<{'figure-dragged': DraggedFigureDto}>();
 </script>
 
 <div
 	class='figure'
-	class:dragged
-	role='figure'
-	draggable='true'
-	on:dragstart={() => {
-		dragged = true;
-	}}
-	on:drag={() => {
-		timeoutId && clearTimeout(timeoutId);
-		timeoutId = setTimeout(() => dragged = false, 250);
-	}}
+	use:dragAndDrop
 >
 	{#each figure.cells as line}
 		<div class='figure-line'>
@@ -48,12 +37,6 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		margin: var(--gap-l);
-		transition: opacity 0.01s;
-	}
-
-	.figure.dragged {
-		opacity: 0;
 	}
 
 	.figure-line {
