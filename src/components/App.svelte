@@ -22,11 +22,11 @@
 		highScore={$game.highScore}
 		score={$game.score}
 		board={$game.board}
-		on:figure-drop={(event) => game.addDraggedFigureToBoard(event.detail)}
 	/>
 	<Figures
 		figures={$game.figures}
 		on:figure-dragged={(event) => game.setDraggedFigure(event.detail)}
+		on:figure-dropped={(event) => game.addDraggedFigureToBoard(event.detail)}
 	/>
 	<GameOver visible={$game.isGameOver} />
 </div>
