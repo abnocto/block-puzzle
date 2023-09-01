@@ -10,6 +10,7 @@
 		<Figure
 			{figure}
 			on:figure-dragged
+			on:figure-dropped
 		/>
 	{/each}
 </div>

@@ -1,16 +1,17 @@
 <script lang='ts'>
-	export let filled: boolean;
+	import type {CellDto} from '../types';
+
+	export let cell: CellDto;
 	export let bordered: boolean = true;
-	export let droppable: boolean = false;
 </script>
 
 <div
 	class='cell'
-	class:filled
 	class:bordered
-	class:droppable
-	on:pointerdown
-	on:pointerup
+	class:filled={cell.filled}
+	data-x={cell.coords.x}
+	data-y={cell.coords.y}
+	data-droppable={cell.droppable}
 />
 
 <style>
@@ -28,9 +29,5 @@
 
 	.cell.bordered {
 		border: 1px solid var(--cell-border);
-	}
-
-	.cell.droppable {
-		z-index: 1;
 	}
 </style>

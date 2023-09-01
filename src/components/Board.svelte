@@ -1,13 +1,10 @@
 <script lang='ts'>
-	import {createEventDispatcher} from 'svelte';
 	import Cell from './Cell.svelte';
-	import type {BoardDto, CoordsDto} from '../types';
+	import type {BoardDto} from '../types';
 
 	export let highScore: number;
 	export let score: number;
 	export let board: BoardDto;
-
-	const dispatch = createEventDispatcher<{'figure-drop': CoordsDto}>();
 </script>
 
 <div>
@@ -24,11 +21,7 @@
 		{#each board.cells as line}
 			<div class='board-line'>
 				{#each line as cell}
-					<Cell
-						filled={cell.filled}
-						droppable={cell.droppable}
-						on:pointerup={() => cell.droppable && dispatch('figure-drop', cell.coords)}
-					/>
+					<Cell {cell} />
 				{/each}
 			</div>
 		{/each}
